@@ -1,0 +1,23 @@
+{
+  "name": "ico",
+  "version": "1.0.0",
+  "description": "The purpose of this task is to be preparation for ICO smart contracts.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eskarlat/ICO-token.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eskarlat/ICO-token/issues"
+  },
+  "homepage": "https://github.com/eskarlat/ICO-token#readme",
+  "dependencies": {
+    "truffle": "^4.0.4",
+    "zeppelin-solidity": "git+https://github.com/LimelabsTech/zeppelin-solidity.git"
+  }
+}
