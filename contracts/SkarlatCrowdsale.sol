@@ -5,13 +5,8 @@ import './SkarlatToken.sol';
 
 contract SkarlatCrowdsale is Crowdsale {
 
-    uint256 private ETH10 = 10000000000000000000;
-    uint256 private ETH30 = 30000000000000000000;
-
-    uint256 FIRST_SEVEN_DAYS = startTime + (86400 * 7);
-    uint256 SECOND_SEVEN_DAYS = FIRST_SEVEN_DAYS + (86400 * 7);
-
-    uint256 private _now;
+    uint256 public FIRST_SEVEN_DAYS;
+    uint256 public SECOND_SEVEN_DAYS;
 
     function SkarlatCrowdsale(
         uint256 _startTime, 
@@ -19,11 +14,18 @@ contract SkarlatCrowdsale is Crowdsale {
         uint256 _rate,
         address _wallet
     ) public Crowdsale(_startTime, _endTime, _rate, _wallet)
-    {}
+    {
+        FIRST_SEVEN_DAYS = startTime + (86400 * 7);
+        SECOND_SEVEN_DAYS = FIRST_SEVEN_DAYS + (86400 * 7);
+    }
     
     function createTokenContract() internal returns(MintableToken) {
         return new SkarlatToken();
     }
+
+    uint256 public ETH10 = 10000000000000000000;
+    uint256 public ETH30 = 30000000000000000000;
+    uint256 public _now;
 
     function setNow(uint256 time) public {
         _now = time;
