@@ -11,6 +11,8 @@ contract SkarlatCrowdsale is Crowdsale {
     uint256 FIRST_SEVEN_DAYS = startTime + (86400 * 7);
     uint256 SECOND_SEVEN_DAYS = FIRST_SEVEN_DAYS + (86400 * 7);
 
+    uint256 private _now;
+
     function SkarlatCrowdsale(
         uint256 _startTime, 
         uint256 _endTime, 
@@ -23,22 +25,24 @@ contract SkarlatCrowdsale is Crowdsale {
         return new SkarlatToken();
     }
 
-    function getRate() internal constant returns(uint256) {
-        if (now <= FIRST_SEVEN_DAYS) {
+    function setNow(uint256 time) public {
+        _now = time;
+    }
+
+    function setRate() public payable {
+        if (_now <= FIRST_SEVEN_DAYS) {
             if (weiRaised >= ETH10)
                 rate = 300;
             else
                 rate = 500;
         }
 
-        if (now > FIRST_SEVEN_DAYS && now <= SECOND_SEVEN_DAYS) {
+        if (_now > FIRST_SEVEN_DAYS && _now <= SECOND_SEVEN_DAYS) {
             if (weiRaised >= ETH30)
                 rate = 150;
             else
                 rate = 200;
         }
-
-        return rate;
     }
 
     function transfer(address _to, uint256 _value) public {
@@ -50,5 +54,10 @@ contract SkarlatCrowdsale is Crowdsale {
         require(!hasEnded());
         require(_to != address(0));
         token.mint(_to, _value);
+    }
+
+    function () external payable {
+        setRate();
+        buyTokens(msg.sender);
     }
 }
