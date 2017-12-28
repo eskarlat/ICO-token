@@ -13,6 +13,31 @@ const util = {
         assert.fail('Expected throw not received')
     },
 
+    setTime: (seconds) => {
+        return new Promise((resolve, reject) => {
+            web3.currentProvider.sendAsync({
+                jsonrpc: "2.0",
+                method: "evm_increaseTime",
+                params: [seconds],
+                id: new Date().getTime()
+            }, (err, result) => {
+                if (err) {
+                    reject(err);
+                }
+                web3.currentProvider.sendAsync({
+                    jsonrpc: "2.0",
+                    method: "evm_mine",
+                    id: new Date().getTime()
+                }, function (err, result) {
+                    if (err) {
+                        reject(err);
+                    }
+                    resolve(result);
+                });
+            });
+        });
+    },
+
     getTimestampPlusSeconds: (seconds) => {
         let date = new Date();
         date.setSeconds(date.getSeconds() + seconds)
