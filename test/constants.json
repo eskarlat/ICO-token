@@ -1,0 +1,14 @@
+{
+    "COUNT_SECONDS_DAY": 86400,
+    "RATE": {
+        "DEFAULT": 100,
+        "BONUS_PERIOD_1": {
+            "MIN": 500,
+            "MAX": 300
+        },
+        "BONUS_PERIOD_2": {
+            "MIN": 200,
+            "MAX": 150
+        }
+    }
+}

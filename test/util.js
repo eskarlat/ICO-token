@@ -38,6 +38,14 @@ const util = {
         });
     },
 
+    getFutureTime: () => {
+        return web3.eth.getBlock(web3.eth.blockNumber).timestamp + 1;
+    },
+
+    getEndTime: () => {
+        return util.getFutureTime() + (86400 * 30);
+    },
+
     getTimestampPlusSeconds: (seconds) => {
         let date = new Date();
         date.setSeconds(date.getSeconds() + seconds)

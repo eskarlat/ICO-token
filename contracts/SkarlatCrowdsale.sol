@@ -16,6 +16,8 @@ contract SkarlatCrowdsale is Crowdsale, FinalizableCrowdsale {
         FinalizableCrowdsale()
         Crowdsale(_startTime, _endTime, _rate, _wallet)
     {}
+
+    event LogAdminMint(address to, uint256 amount, address host);
     
     function createTokenContract() internal returns(MintableToken) {
         SkarlatToken _token = new SkarlatToken();
@@ -46,8 +48,14 @@ contract SkarlatCrowdsale is Crowdsale, FinalizableCrowdsale {
         return rate;
     }
 
-    function adminMint(address _to, uint256 _value) public {
+    function adminMint(address _to, uint256 _value) public onlyOwner returns (bool success) {
+        require(_to != address(0));
+        require(_value > 0);
         require(!hasEnded());
+
         token.mint(_to, _value);
+
+        LogAdminMint(_to, _value, msg.sender);
+        return true;
     }
 }
