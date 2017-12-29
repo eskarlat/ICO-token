@@ -8,8 +8,7 @@ module.exports = {
     development: {
       host: "localhost",
       port: 8545,
-      network_id: "*", // Match any network id
-      gas: 4700036
+      network_id: "*" // Match any network id
     },
     ropstenInfura: {
       provider: new HDWalletProvider(config.MNEMONIC, "https://ropsten.infura.io/" + config.INFURA_API_KEY),
